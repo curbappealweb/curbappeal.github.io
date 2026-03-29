@@ -93,7 +93,9 @@
   .form-group { margin-bottom: 1rem; }
   .form-group label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--navy); margin-bottom: 0.45rem; }
   .form-group label .req { color: var(--gold); }
-  .form-group input, .form-group select, .form-group textarea {
+  
+  /* FIX: Exclude checkboxes from appearance: none; */
+  .form-group input:not([type="checkbox"]), .form-group select, .form-group textarea {
     width: 100%; padding: 0.75rem 1rem; border: 1.5px solid #e5e7eb; border-radius: 5px;
     font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--navy);
     background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s;
@@ -107,7 +109,14 @@
 
   .checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.3rem; }
   .checkbox-item { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
-  .checkbox-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; flex-shrink: 0; }
+  
+  /* FIX: Ensure checkboxes are visible and use the golden theme */
+  .checkbox-item input[type="checkbox"] { 
+    width: 18px; height: 18px; 
+    accent-color: var(--gold); 
+    cursor: pointer; flex-shrink: 0;
+    appearance: auto; /* Force standard rendering */
+  }
   .checkbox-item span { font-size: 0.85rem; color: var(--navy); }
 
   .submit-btn {
@@ -193,7 +202,7 @@
         <div class="contact-icon">📧</div>
         <div>
           <h4>Email</h4>
-          <a href="mailto:hello@curbappealweb.co">hello@curbappealweb.co</a>
+          <a href="mailto:hello@curbappealweb@gmail.com">curbappealweb@gmail.com</a>
         </div>
       </div>
       <div class="contact-item">
