@@ -367,12 +367,14 @@ async function submitForm() {
   const budget = document.getElementById('budget').value;
   const message = document.getElementById('message').value.trim();
 
-  // Get checkboxes
+  // FIX: Capture checkboxes correctly
   const features = [];
-  const checkboxItems = document.querySelectorAll('.checkboxes input[type="checkbox"]');
-  checkboxItems.forEach(cb => {
-    if (cb.checked) {
-      features.push(cb.nextElementSibling.innerText);
+  const checkboxWrappers = document.querySelectorAll('.checkbox-item');
+  checkboxWrappers.forEach(wrapper => {
+    const input = wrapper.querySelector('input[type="checkbox"]');
+    const span = wrapper.querySelector('span');
+    if (input && input.checked && span) {
+      features.push(span.innerText.trim());
     }
   });
 
@@ -404,7 +406,7 @@ async function submitForm() {
         phone: phone,
         "business type": bizType,
         "current situation": currentSite,
-        features: features.join(', '),
+        "features requested": features.length > 0 ? features.join(', ') : 'None selected',
         budget: budget,
         message: message
       })
