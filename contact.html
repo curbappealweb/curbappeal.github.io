@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Free Quote — Curb Appeal Web Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a; --navy-mid: #1a2e45;
+    --gold: #c9a84c; --gold-light: #e8c96e;
+    --cream: #f9f4ec; --white: #ffffff;
+    --gray: #6b7280; --light-gray: #f3f4f6;
+    --error: #ef4444; --success: #22c55e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,27,42,0.96); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+  .logo-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--white); line-height: 1.15; }
+  .logo-text span { color: var(--gold); }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+  nav ul a { text-decoration: none; color: rgba(255,255,255,0.75); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em; transition: color 0.2s; }
+  nav ul a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--navy) !important; padding: 0.55rem 1.4rem; border-radius: 3px; font-weight: 500 !important; }
+
+  .page-header {
+    background: var(--navy); padding: 8rem 4rem 5rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center top, rgba(201,168,76,0.1) 0%, transparent 60%);
+  }
+  .page-header::after {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  .page-header-inner { position: relative; z-index: 1; }
+  .page-header span { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+  .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--white); margin-top: 0.75rem; line-height: 1.1; }
+  .page-header p { color: rgba(255,255,255,0.6); font-size: 1.05rem; margin-top: 1rem; max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+
+  .contact-section { padding: 5rem 4rem; background: var(--cream); }
+  .contact-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+
+  /* SIDEBAR */
+  .contact-sidebar {}
+  .section-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
+  .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; line-height: 1.2; color: var(--navy); margin-bottom: 1rem; }
+  .sidebar-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 2rem; }
+  .divider { width: 40px; height: 3px; background: var(--gold); border-radius: 2px; margin: 1.2rem 0; }
+  .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+  .contact-icon {
+    width: 40px; height: 40px; background: rgba(201,168,76,0.1); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-item h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray); margin-bottom: 0.2rem; }
+  .contact-item p, .contact-item a { font-size: 0.92rem; color: var(--navy); text-decoration: none; }
+  .contact-item a:hover { color: var(--gold); }
+
+  .promise-box {
+    background: var(--navy); border-radius: 8px; padding: 1.75rem;
+    margin-top: 2rem; border: 1px solid rgba(201,168,76,0.15);
+    position: relative; overflow: hidden;
+  }
+  .promise-box::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent); }
+  .promise-box h4 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1rem; margin-bottom: 0.8rem; position: relative; }
+  .promise-list { list-style: none; position: relative; }
+  .promise-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); padding: 0.35rem 0; }
+  .promise-list .check { color: var(--gold); }
+
+  /* FORM */
+  .contact-form-wrap {
+    background: var(--white); border-radius: 10px; padding: 2.5rem;
+    border: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  }
+  .form-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .form-subtitle { font-size: 0.88rem; color: var(--gray); margin-bottom: 2rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--navy); margin-bottom: 0.45rem; }
+  .form-group label .req { color: var(--gold); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.75rem 1rem; border: 1.5px solid #e5e7eb; border-radius: 5px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--navy);
+    background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none; appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+
+  .checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.3rem; }
+  .checkbox-item { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+  .checkbox-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; flex-shrink: 0; }
+  .checkbox-item span { font-size: 0.85rem; color: var(--navy); }
+
+  .submit-btn {
+    width: 100%; padding: 1rem; margin-top: 1.2rem;
+    background: var(--gold); color: var(--navy); border: none; border-radius: 5px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+  }
+  .submit-btn:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,0.3); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .form-note { text-align: center; font-size: 0.78rem; color: var(--gray); margin-top: 1rem; }
+
+  /* SUCCESS STATE */
+  .success-message {
+    display: none; text-align: center; padding: 2rem;
+  }
+  .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .success-message h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .success-message p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+
+  footer { background: #080f18; padding: 3rem 4rem 2rem; border-top: 1px solid rgba(255,255,255,0.04); }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+  .footer-brand p { color: rgba(255,255,255,0.35); font-size: 0.85rem; margin-top: 0.6rem; max-width: 260px; line-height: 1.6; }
+  .footer-links h5 { color: var(--white); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-links a { display: block; color: rgba(255,255,255,0.4); font-size: 0.88rem; text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { color: rgba(255,255,255,0.25); font-size: 0.8rem; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    .contact-section { padding: 4rem 1.5rem; }
+    .page-header { padding: 7rem 1.5rem 4rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .checkboxes { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+      <rect width="38" height="38" rx="6" fill="rgba(201,168,76,0.12)"/>
+      <path d="M8 26 L19 12 L30 26" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M13 26 L19 18 L25 26" stroke="#e8c96e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <rect x="16" y="22" width="6" height="4" rx="1" fill="#c9a84c"/>
+    </svg>
+    <div class="logo-text">Curb Appeal<br><span>Web Co.</span></div>
+  </a>
+  <ul>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="index.html#testimonials">Reviews</a></li>
+    <li><a href="contact.html" class="nav-cta">Get a Free Quote</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <span>Free, No-Pressure Quote</span>
+    <h1>Let's Get Your Business<br>Online the Right Way</h1>
+    <p>Fill out the form and we'll get back to you within 24 hours with a custom quote — no fluff, no hard sell, just a straight answer.</p>
+  </div>
+</div>
+
+<section class="contact-section">
+  <div class="contact-inner">
+
+    <!-- SIDEBAR -->
+    <div class="contact-sidebar">
+      <span class="section-label">Get in Touch</span>
+      <h2 class="sidebar-title">We'd Love to Hear About Your Business</h2>
+      <div class="divider"></div>
+      <p class="sidebar-desc">Tell us what you need and we'll put together a clear, honest quote. No jargon, no bloated agency pricing — just real help for your local business.</p>
+
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:hello@curbappealweb.co">hello@curbappealweb.co</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Phone / Text</h4>
+          <a href="tel:+15550000000">(555) 000-0000</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⏱️</div>
+        <div>
+          <h4>Response Time</h4>
+          <p>We respond within 24 hours, usually much faster.</p>
+        </div>
+      </div>
+
+      <div class="promise-box">
+        <h4>Our Promise to You</h4>
+        <ul class="promise-list">
+          <li><span class="check">✓</span> Free quote — always</li>
+          <li><span class="check">✓</span> No pressure, no hard sell</li>
+          <li><span class="check">✓</span> Honest timelines & pricing</li>
+          <li><span class="check">✓</span> We explain everything clearly</li>
+          <li><span class="check">✓</span> You own your website, always</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="contact-form-wrap" id="quote-form-wrap">
+      <div id="form-content">
+        <h3 class="form-title">Get My Free Quote</h3>
+        <p class="form-subtitle">Takes about 2 minutes. We'll review and reply within 24 hours.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name <span class="req">*</span></label>
+            <input type="text" id="name" placeholder="Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label>Business Name <span class="req">*</span></label>
+            <input type="text" id="business" placeholder="Smith's Hardware" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="jane@mybusiness.com" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="(555) 123-4567">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>What type of business do you have? <span class="req">*</span></label>
+          <select id="biz-type">
+            <option value="" disabled selected>Select your industry...</option>
+            <option>Restaurant / Café / Food</option>
+            <option>Contractor / Home Services</option>
+            <option>Salon / Spa / Beauty</option>
+            <option>Retail / Shop</option>
+            <option>Medical / Dental / Health</option>
+            <option>Auto / Repair</option>
+            <option>Fitness / Gym</option>
+            <option>Legal / Financial Services</option>
+            <option>Real Estate</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>What's your current situation?</label>
+          <select id="current-site">
+            <option value="" disabled selected>Choose one...</option>
+            <option>I have no website at all</option>
+            <option>I have a bad / outdated website</option>
+            <option>I have a website but want to add features</option>
+            <option>I want a completely fresh redesign</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>What features do you need? (check all that apply)</label>
+          <div class="checkboxes">
+            <label class="checkbox-item"><input type="checkbox"> <span>Contact form</span></label>
+            <label class="checkbox-item"><input type="checkbox"> <span>Photo gallery</span></label>
+            <label class="checkbox-item"><input type="checkbox"> <span>Online booking</span></label>
+            <label class="checkbox-item"><input type="checkbox"> <span>Menu / services list</span></label>
+            <label class="checkbox-item"><input type="checkbox"> <span>Online store</span></label>
+            <label class="checkbox-item"><input type="checkbox"> <span>Google Maps</span></label>
+            <label class="checkbox-item"><input type="checkbox"> <span>Blog / news</span></label>
+            <label class="checkbox-item"><input type="checkbox"> <span>Not sure yet</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>What's your approximate budget?</label>
+          <select id="budget">
+            <option value="" disabled selected>Select a range...</option>
+            <option>Under $500</option>
+            <option>$500 – $1,000</option>
+            <option>$1,000 – $2,000</option>
+            <option>$2,000 – $5,000</option>
+            <option>$5,000+</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Anything else we should know?</label>
+          <textarea id="message" placeholder="Tell us anything helpful — inspiration sites you like, your timeline, what's most important to you..."></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="submitForm()">Send My Quote Request →</button>
+        <p class="form-note">🔒 Your information is never shared. We'll only use it to prepare your quote.</p>
+      </div>
+
+      <div class="success-message" id="success-msg">
+        <div class="success-icon">🎉</div>
+        <h3>We Got Your Request!</h3>
+        <p>Thank you — we'll review your info and send you a custom quote within 24 hours. Check your email inbox (and spam folder, just in case).</p>
+        <p style="margin-top:1rem;">In the meantime, feel free to check out our <a href="pricing.html" style="color:var(--gold)">pricing page</a> to get a sense of what to expect.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <svg width="32" height="32" viewBox="0 0 38 38" fill="none">
+          <rect width="38" height="38" rx="6" fill="rgba(201,168,76,0.12)"/>
+          <path d="M8 26 L19 12 L30 26" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M13 26 L19 18 L25 26" stroke="#e8c96e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect x="16" y="22" width="6" height="4" rx="1" fill="#c9a84c"/>
+        </svg>
+        <div class="logo-text">Curb Appeal <span>Web Co.</span></div>
+      </a>
+      <p style="margin-top:0.75rem;">Professional websites for local businesses.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Pages</h5>
+      <a href="index.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-links">
+      <h5>Contact</h5>
+      <a href="mailto:curbappealweb@gmail.com">curbappealweb@gmail.com</a>
+      <a href="tel:+15550000000">(555) 000-0000</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Curb Appeal Web Co. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  const business = document.getElementById('business').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const bizType = document.getElementById('biz-type').value;
+
+  if (!name || !business || !email || !bizType) {
+    alert('Please fill in all required fields (marked with ✦).');
+    return;
+  }
+  if (!email.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  document.getElementById('form-content').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+  document.getElementById('quote-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+
+</body>
+</html>
